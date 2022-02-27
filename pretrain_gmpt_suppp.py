@@ -29,9 +29,9 @@ class GMPT_Suppp(nn.Module):
             self.criterion = nn.BCEWithLogitsLoss(reduction='none')
         self.mask = ~torch.eye(args.batch_size, dtype=torch.bool)
 
-    def from_pretrained(self, model_file):
-        print(f'loading pre-trained model from {model_file}')
-        self.gnn.load_state_dict(torch.load(model_file, map_location=lambda storage, loc: storage))
+    def from_pretrained(self, input_model_file):
+        print(f'loading pre-trained model from {input_model_file}')
+        self.gnn.load_state_dict(torch.load(input_model_file, map_location=lambda storage, loc: storage))
 
     def calcu_loss(self, gid, batch_graph):
         x, edge_index, edge_attr, batch = batch_graph.x, batch_graph.edge_index, batch_graph.edge_attr, batch_graph.batch
@@ -116,7 +116,7 @@ def main():
     parser.add_argument('--JK', type=str, default="last",
                         help='how the node features across layers are combined. last, sum, max or concat')
     parser.add_argument('--input_model_file', type=str, default = '', help='filename to read the model (if there is any)')
-    parser.add_argument('--output_model_file', type = str, default = '', help='filename to output the pre-trained model')
+    parser.add_argument('--model_file', type = str, default = '', help='filename to output the pre-trained model')
     parser.add_argument('--dataset_path', type=str, default='./', help='root path to the dataset')
     parser.add_argument('--gnn_type', type=str, default="gin")
     parser.add_argument('--num_workers', type=int, default = 0, help='number of workers for dataset loading')
@@ -187,7 +187,7 @@ def main():
         print(train_loss)
 
         if epoch == 1 or epoch % 20 == 0:
-            torch.save(model.gnn.state_dict(), args.output_model_file + f'.pth.{epoch}')
+            torch.save(model.gnn.state_dict(), args.model_file + f'.pth.{epoch}')
 
 
 if __name__ == "__main__":
