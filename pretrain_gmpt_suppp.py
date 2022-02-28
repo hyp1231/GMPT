@@ -46,7 +46,7 @@ class GMPT_Suppp(nn.Module):
         pred = torch.cat([pred1, pred2], dim=-1)
 
         if self.mode == 'bio':
-            batch_y = batch_graph.go_target_pretrain.view(pred1.shape)
+            batch_y = batch_graph.go_target_pretrain.view(-1, self.num_tasks)
         elif self.mode == 'chem':
             batch_y = batch_graph.y.view(-1, self.num_tasks).float()
             is_valid = (batch_y**2 > 0)
