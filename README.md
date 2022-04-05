@@ -1,6 +1,6 @@
 # GMPT
 
-Official PyTorch implementation for **G**raph **M**atching based GNN **P**re-**T**raining.
+Official PyTorch implementation for **G**raph **M**atching based GNN **P**re-**T**raining [[paper]](https://arxiv.org/abs/2203.01597).
 
 > *Yupeng Hou, Binbin Hu, Wayne Xin Zhao, Zhiqiang Zhang, Jun Zhou, Ji-Rong Wen.* **Neural Graph Matching for Pre-training Graph Neural Networks.** SDM 2022.
 
